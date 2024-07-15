@@ -1,12 +1,42 @@
 import cv2
 import os
 
+def print_webcam_settings(cap):
+    print(f"Default Exposure: {cap.get(cv2.CAP_PROP_EXPOSURE)}")
+    print(f"Default Gain: {cap.get(cv2.CAP_PROP_GAIN)}")
+    print(f"Default Brightness: {cap.get(cv2.CAP_PROP_BRIGHTNESS)}")
+    print(f"Default Contrast: {cap.get(cv2.CAP_PROP_CONTRAST)}")
+
+
+# Function to set webcam parameters
+def set_webcam_parameters(cap):
+    # Set the resolution
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
+    # Set exposure time (values might need tweaking)
+    cap.set(cv2.CAP_PROP_EXPOSURE, 10000)  # default 15, adjust as needed
+
+    # Set gain (values might need tweaking)
+    cap.set(cv2.CAP_PROP_GAIN, 10000)  # default 14, adjust as needed
+
+    # Set brightness (values might need tweaking)
+    cap.set(cv2.CAP_PROP_BRIGHTNESS, -20)  # default 10, adjust as needed
+
+    # Set contrast (values might need tweaking)
+    cap.set(cv2.CAP_PROP_CONTRAST, 25)  # default 11, adjust as needed
+
+    # Set frame rate (values might need tweaking)
+    cap.set(cv2.CAP_PROP_FPS, 1)  # default 5, adjust as needed
+
 def capture_images(num_images):
     image_dir = 'images'
     if not os.path.exists(image_dir):
         os.makedirs(image_dir)
         
     cap = cv2.VideoCapture(0)
+    print_webcam_settings(cap)
+    set_webcam_parameters(cap)
     
     if not cap.isOpened():
         print("Error: Could not open camera.")
